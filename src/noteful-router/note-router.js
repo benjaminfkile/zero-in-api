@@ -1,21 +1,3 @@
-// const express = require('express')
-// const notefulService = require('./noteful-service')
-// const noteRouter = express.Router()
-
-// noteRouter
-//   .route('/')
-//   .get((req, res, next) => {
-//     const knexInstance = req.app.get('db')
-//     notefulService.getAllNotes(knexInstance)
-//       .then(data => {
-//         res.json(data)
-//       })
-//       .catch(next)
-//   })
-
-
-// module.exports = noteRouter
-
 const express = require('express')
 const notefulService = require('./noteful-service')
 const noteRouter = express.Router()
