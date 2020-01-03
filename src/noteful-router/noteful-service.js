@@ -1,10 +1,10 @@
 const notefulService = {
   getAllFolders(knex) {
     return knex.select('*').from('folders')
-  }, 
+  },
   getAllNotes(knex) {
     return knex.select('*').from('notes')
-  }, 
+  },
   insertFolder(knex, newFolder) {
     return knex
       .insert(newFolder)
@@ -30,19 +30,17 @@ const notefulService = {
     return knex.from('notes').select('*').where('id', id).first()
   },
   deleteFolder(knex, id) {
-    knex('notes').where({folderId:id})
-    .then(function(rows){
-      console.log(rows)
-    })
-    // return knex('folders')
-    //   .where({ id })
-    //   .delete()
+    knex('notes').where({ folderId: id })
+      .delete()
+    return knex('folders')
+      .where({ id })
+      .delete()
   },
   deleteNote(knex, id) {
     return knex('notes')
       .where({ id })
       .delete()
-  }, 
+  },
 }
 
 module.exports = notefulService
