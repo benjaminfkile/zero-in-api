@@ -32,9 +32,9 @@ folderRouter
       })
       .catch(next)
   })
-  /********************************************************************************/
+/********************************************************************************/
 
-  folderRouter
+folderRouter
   .route('/:id')
   .all((req, res, next) => {
     notefulService.getFolderById(
