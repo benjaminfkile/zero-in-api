@@ -30,8 +30,7 @@ const notefulService = {
     return knex.from('notes').select('*').where('id', id).first()
   },
   deleteFolder(knex, id) {
-    knex('notes').where({ folderId: id })
-      .delete()
+    this.deleteFolderNotes(knex, id)
     return knex('folders')
       .where({ id })
       .delete()
@@ -41,6 +40,12 @@ const notefulService = {
       .where({ id })
       .delete()
   },
+  deleteFolderNotes(knex, folderId){
+    knex.select('folderId').from('notes')
+    .where({folderId})
+    .delete()
+    .then(data => console.log(data))
+  }
 }
 
 module.exports = notefulService
