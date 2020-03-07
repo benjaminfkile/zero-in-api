@@ -4,8 +4,8 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
-const folderRouter = require('./noteful-router/folder-router')
-const noteRouter = require('./noteful-router/note-router')
+const addressRouter = require('./router/address-router')
+const buildingRouter = require('./router/building-router')
 
 const app = express()
 
@@ -15,9 +15,9 @@ app.use(morgan((NODE_ENV === 'production') ? 'tiny' : 'common', {
 app.use(cors())
 app.use(helmet())
 
-app.use('/api/folders', folderRouter)
+app.use('/api/addresses', addressRouter)
 
-app.use('/api/notes', noteRouter)
+app.use('/api/buildings', buildingRouter)
 
 app.use(function errorHandler(error, req, res, next) {
   let response

@@ -1,62 +1,62 @@
 const express = require('express')
-const notefulService = require('./noteful-service')
-const noteRouter = express.Router()
+const addressService = require('./service')
+const addressRouter = express.Router()
 const jsonParser = express.json()
 
-noteRouter
+addressRouter
   .route('/')
   .get((req, res, next) => {
     const knexInstance = req.app.get('db')
-    notefulService.getAllNotes(knexInstance)
-      .then(notes => {
-        res.json(notes)
+    addressService.getAllAddresses(knexInstance)
+      .then(addresses => {
+        res.json(addresses)
       })
       .catch(next)
   })
   .post(jsonParser, (req, res, next) => {
-    const { id, name, modified, folderId, content } = req.body
-    const newNote = { id, name, modified, folderId, content }
+    const { id, address, initCoords } = req.body
+    const newAddress = { id, address, initCoords }
 
-    for (const [key, value] of Object.entries(newNote))
+    for (const [key, value] of Object.entries(newAddress))
       if (value == null)
         return res.status(400).json({
           error: { message: `Missing '${key}' in request body` }
         })
 
-    notefulService.insertNote(
+    addressService.insertAddress(
       req.app.get('db'),
-      newNote
+      newAddress
     )
-      .then(note => {
-        res.json(note)
+      .then(address => {
+        res.json(address)
       })
       .catch(next)
   })
-  /********************************************************************************/
+/********************************************************************************/
 
-  noteRouter
+addressRouter
   .route('/:id')
   .all((req, res, next) => {
-    notefulService.getNoteById(
+    addressService.getAddressById(
       req.app.get('db'),
       req.params.id
     )
-      .then(note => {
-        if (!note) {
+      .then(address => {
+        if (!address) {
           return res.status(404).json({
-            error: { message: `note doesn't exist` }
+            error: { message: `address doesn't exist` }
           })
         }
-        res.note = note
+        res.address = address
         next()
       })
       .catch(next)
   })
   .get((req, res, next) => {
-    res.json(res.note)
+    res.json(res.address)
   })
   .delete((req, res, next) => {
-    notefulService.deleteNote(
+    addressService.deleteAddress(
       req.app.get('db'),
       req.params.id
     )
@@ -66,4 +66,4 @@ noteRouter
       .catch(next)
   })
 
-module.exports = noteRouter
+module.exports = addressRouter
