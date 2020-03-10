@@ -1,6 +1,11 @@
 # Zero In Api
 
-This is an API that contains a collection of addresses and buildings with address keys in Missoula MT.
+This is an API that contains a collection of addresses and buildings with unique address and building keys in Missoula MT.
+The entire projects is designed to help delivery or taxi drivers find the appartments associated with buildings in large complexes
+
+### Check it out
+
+www.zeroin.now.sh
 
 ## How to set up
 
