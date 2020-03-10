@@ -5,7 +5,7 @@ The entire projects is designed to help delivery or taxi drivers find the appart
 
 ### Check it out
 
-www.zeroin.now.sh
+zeroin.now.sh
 
 ## How to set up
 
